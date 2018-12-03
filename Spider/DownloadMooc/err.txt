@@ -1,0 +1,7 @@
+﻿    tfp = open(filename, 'wb')
+OSError: [Errno 22] Invalid argument: 
+'Linux系统管理 宁波城市职业技术学院\\主题07 ：管好网络\\0.微视频:配置TCP/IP网络参数.mp4'
+
+
+1.文件名里有 /
+2.网络异常

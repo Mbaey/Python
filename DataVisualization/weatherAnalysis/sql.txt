@@ -1,0 +1,94 @@
+select * from tb_air where 城市='兰州' and 日期 = '2017-12-28';
+mysql> select * from tb_air where 城市='兰州' and 日期like'2017-12';
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''2017-12'' at line 1
+mysql> select * from tb_air where 城市='兰州' and 日期 like '2017-12';
+Empty set
+
+mysql> select * from tb_air where 城市='兰州' and 日期 likes '2017-12';
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'likes '2017-12'' at line 1
+mysql> select * from tb_air where 城市='兰州' and 日期 likes '2017-12%';
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'likes '2017-12%'' at line 1
+mysql> select * from tb_air where 城市='兰州' and 1!=1;
+Empty set
+
+mysql> select * from tb_air where 城市='兰州' and 日期 likes '2017-12%';
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'likes '2017-12%'' at line 1
+mysql> select * from tb_air where 城市='兰州' and 日期 like '2017-12%';
++------+------------+----------+-----+---------+-------+------+-----+-----+----+----+
+| 城市 | 日期       | 质量等级 | AQI | AQI排名 | PM2.5 | PM10 | So2 | No2 | Co | O3 |
++------+------------+----------+-----+---------+-------+------+-----+-----+----+----+
+| 兰州 | 2017-12-01 | 轻度污染 | 113 |     322 |    75 |  167 |  51 |  95 |  2 | 27 |
+| 兰州 | 2017-12-02 | 轻度污染 | 131 |     302 |    98 |  190 |  56 | 102 |  3 | 25 |
+| 兰州 | 2017-12-03 | 轻度污染 | 108 |     257 |    79 |  152 |  48 |  82 |  2 | 33 |
+| 兰州 | 2017-12-04 | 良       |  72 |     213 |    41 |   93 |  34 |  65 |  1 | 36 |
+| 兰州 | 2017-12-05 | 良       |  76 |     213 |    40 |  101 |  32 |  71 |  2 | 27 |
+| 兰州 | 2017-12-06 | 良       |  86 |     163 |    56 |  120 |  46 |  66 |  2 | 25 |
+| 兰州 | 2017-12-07 | 良       |  72 |     122 |    41 |   92 |  41 |  56 |  1 | 30 |
+| 兰州 | 2017-12-08 | 良       |  76 |     216 |    43 |  100 |  48 |  64 |  2 | 21 |
+| 兰州 | 2017-12-09 | 良       |  96 |     270 |    57 |  139 |  54 |  68 |  2 | 28 |
+| 兰州 | 2017-12-10 | 良       |  98 |     255 |    59 |  144 |  43 |  83 |  2 | 29 |
+| 兰州 | 2017-12-11 | 轻度污染 | 116 |     319 |    82 |  175 |  55 |  91 |  3 | 26 |
+| 兰州 | 2017-12-12 | 轻度污染 | 109 |     308 |    75 |  163 |  55 |  82 |  3 | 27 |
+| 兰州 | 2017-12-13 | 轻度污染 | 121 |     334 |    88 |  175 |  67 |  81 |  2 | 31 |
+| 兰州 | 2017-12-14 | 良       |  88 |     233 |    50 |  124 |  34 |  52 |  1 | 34 |
+| 兰州 | 2017-12-15 | 良       |  68 |     201 |    34 |   85 |  29 |  38 |  1 | 50 |
+| 兰州 | 2017-12-16 | 良       |  58 |     176 |    30 |   66 |  25 |  45 |  1 | 42 |
+| 兰州 | 2017-12-17 | 良       |  93 |     319 |    64 |  131 |  49 |  75 |  2 | 24 |
+| 兰州 | 2017-12-18 | 良       |  89 |     296 |    60 |  121 |  55 |  70 |  2 | 22 |
+| 兰州 | 2017-12-19 | 轻度污染 | 104 |     322 |    73 |  142 |  61 |  84 |  3 | 31 |
+| 兰州 | 2017-12-20 | 轻度污染 | 132 |     348 |    99 |  185 |  69 | 104 |  4 | 25 |
+| 兰州 | 2017-12-21 | 中度污染 | 167 |     360 |   126 |  215 |  65 | 122 |  4 | 26 |
+| 兰州 | 2017-12-22 | 轻度污染 | 148 |     312 |   112 |  197 |  73 | 112 |  4 | 23 |
+| 兰州 | 2017-12-23 | 良       |  97 |     134 |    50 |  141 |  38 |  64 |  2 | 34 |
+| 兰州 | 2017-12-24 | 轻度污染 | 115 |     238 |    63 |  178 |  51 |  85 |  3 | 25 |
+| 兰州 | 2017-12-25 | 轻度污染 | 111 |     309 |    76 |  167 |  61 |  92 |  3 | 26 |
+| 兰州 | 2017-12-26 | 轻度污染 | 121 |     272 |    88 |  177 |  75 | 112 |  4 | 23 |
+| 兰州 | 2017-12-27 | 中度污染 | 152 |     290 |   115 |  208 |  62 | 124 |  4 | 29 |
+| 兰州 | 2017-12-28 | 严重污染 | 273 |     351 |   142 |  657 |  46 |  77 |  3 | 32 |
+| 兰州 | 2017-12-29 | 严重污染 | 481 |     361 |   119 |  720 |  13 |  43 |  1 | 44 |
+| 兰州 | 2017-12-30 | 严重污染 | 319 |     356 |   104 |  435 |  22 |  65 |  2 | 23 |
+| 兰州 | 2017-12-31 | 中度污染 | 187 |     302 |   102 |  319 |  45 |  79 |  3 | 26 |
++------+------------+----------+-----+---------+-------+------+-----+-----+----+----+
+31 rows in set (0.07 sec)
+
+mysql> select * from tb_air where 城市='兰州' and 日期 is '2017-12-28';
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''2017-12-28'' at line 1
+mysql> select * from tb_air where 城市='兰州' and 日期 = '2017-12-28';
++------+------------+----------+-----+---------+-------+------+-----+-----+----+----+
+| 城市 | 日期       | 质量等级 | AQI | AQI排名 | PM2.5 | PM10 | So2 | No2 | Co | O3 |
++------+------------+----------+-----+---------+-------+------+-----+-----+----+----+
+| 兰州 | 2017-12-28 | 严重污染 | 273 |     351 |   142 |  657 |  46 |  77 |  3 | 32 |
++------+------------+----------+-----+---------+-------+------+-----+-----+----+----+
+1 row in set (0.04 sec)
+
+mysql> select 城市,日期, AQI from tb_air where 城市='兰州' into table tb_everyday_lanzhou;
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table tb_everyday_lanzhou' at line 1
+mysql> select 城市,日期, AQI from tb_air where 城市='兰州' into outfile 'D://lanzhou.sql';
+1290 - The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+mysql> show variables like '%secure%';
++--------------------------+------------------------------------------------+
+| Variable_name            | Value                                          |
++--------------------------+------------------------------------------------+
+| require_secure_transport | OFF                                            |
+| secure_auth              | ON                                             |
+| secure_file_priv         | C:\ProgramData\MySQL\MySQL Server 5.7\Uploads\ |
++--------------------------+------------------------------------------------+
+3 rows in set (0.05 sec)
+
+mysql> select 城市,日期, AQI from tb_air where 城市='兰州' into outfile 'D://li//python//DataVisualization//weatherAnalysis//data//2017AllDate.sql';
+1290 - The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+
+
+select 城市, avg(AQI) as AQI , avg(PM10) as PM10, avg(PM25) as 'PM2.5'
+from tb_airall
+where 日期 like '2017%'
+group by 城市
+ORDER BY AQI
+into outfile 'D://li//python//DataVisualization//weatherAnalysis//data//2017AllDate.sql';
+
+select 城市, avg(AQI) as AQI , avg(PM10) as PM10, avg(PM25) as 'PM2.5'
+from tb_airall
+where 日期 like '2016%'
+group by 城市
+ORDER BY AQI
+into outfile 'D://li//python//DataVisualization//weatherAnalysis//data//2016AllDate.sql';
