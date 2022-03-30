@@ -1,0 +1,6 @@
+1.项目使用Django框架，请确保已安装python，Django,项目使用：
+python manage.py runserver localhost:8000 启动
+
+2.请在pismap/static/facedata/base中放入用户照片用来比对识别。
+
+3.博客 https://mp.csdn.net/postedit/81414406

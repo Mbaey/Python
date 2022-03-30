@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>调用摄像头Demo</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        /* video{
+            width: 50%;
+            height: 50%;
+            margin: 50px auto;
+            background-color: aquamarine;
+            display: block;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <button id="button_start" type="button" class="btn btn-primary">获取摄像头权限</button>
+                <button id="button_screenshot" type="button" class="btn btn-primary">识别</button>
+
+                <button id="button_stop" type="button" class="btn btn-secondary">暂停</button>
+
+            </div>
+            <div class="col-md-12 column">
+                <video id="video"></video>
+
+                <p id="beauty_score" class="hide">颜值：</p>
+                <canvas id="canvas" width="500" height="500"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        $("#beauty_score").hide();
+        $("#video").hide();
+        $(function () {
+            // 开始写 jQuery 代码...
+            $("#button_start").click(function () {
+                get_video()
+
+            });
+            $("#button_stop").click(function () {
+                // video.srcObject = null;
+                // delete stream;
+                if (video.paused)
+                    video.play();
+                else
+                    video.pause();
+            });
+
+            $("#button_screenshot").click(function () {
+                post_face()
+            });
+
+        });
+
+        function get_video() {
+            hw = 500
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                //最新的标准API
+                console.log("navigator.mediaDevices.getUserMedia")
+                navigator.mediaDevices.getUserMedia({ video: { width: hw, height: hw, facingMode: "user", } }).then(success).catch(error);
+
+            } else if (navigator.webkitGetUserMedia) {
+                //webkit核心浏览器
+                console.log("navigator.webkitGetUserMedia")
+                navigator.webkitGetUserMedia({ video: { width: hw, height: hw, facingMode: "user", } }, success, error)
+            } else if (navigator.mozGetUserMedia) {
+                //firfox浏览器
+                console.log("navigator.mozGetUserMedia")
+                navigator.mozGetUserMedia({ video: { width: hw, height: hw, facingMode: "user", } }, success, error);
+            } else if (navigator.getUserMedia) {
+                //旧版API
+                console.log("navigator.getUserMedia")
+                navigator.getUserMedia({ video: { width: hw, height: hw, facingMode: "user", } }, success, error);
+            }
+
+            function success(stream) {
+                //兼容webkit核心浏览器
+                // let CompatibleURL = window.URL || window.webkitURL;
+
+                //将视频流设置为video元素的源
+                console.log(stream);
+
+                //video.src = CompatibleURL.createObjectURL(stream);
+                video.srcObject = stream;
+                video.play();
+            }
+
+            function error(error) {
+                console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
+            }
+        }
+
+
+        function post_face() {
+            setTimeout(function () {
+                // context.clearRect(0,0,canvas.width,canvas.height);
+                context.drawImage(video, 0, 0, 500, 500);
+                img = canvas.toDataURL('image/jpg')
+                // {#获取完整的base64编码#}
+                // console.log(img)
+                img = img.split(',')[1]
+
+                //将照片以base64用ajax传到后台
+                $.post({
+                    url: '/get_face_score',
+                    data: {
+                        image: img
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.msg == 'ok') {
+                            faces = data['faces']
+                            // context.strokeStyle="red";
+                            // context.rect(faces[0],faces[1],faces[2],faces[3]);
+                            // context.stroke();
+
+                            $("#beauty_score").show()
+                            $("#beauty_score").text("颜值：" + data.beauty)
+                        } else {
+                            $("#beauty_score").show()
+                            $("#beauty_score").text("未检测到人脸")
+                        }
+                        // else {
+                        //     window.location.href = data
+                        // }
+                        post_face()
+                    },
+                    error: function (data) {
+                        post_face()
+                    }
+                })
+            }, 0)
+        }
+
+
+    </script>
+</body>
+
+</html>
